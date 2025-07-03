@@ -21,43 +21,56 @@ fun SmartCityScreen(
     val scaffoldState = rememberBottomSheetScaffoldState()
     val scope = rememberCoroutineScope()
 
+    val searchBarHeight = 100.dp
+
     LaunchedEffect(Unit) {
         scaffoldState.bottomSheetState.expand()
     }
 
-    BottomSheetScaffold(
-        scaffoldState = scaffoldState,
-        sheetPeekHeight = 200.dp,
-        sheetContent = {
-            CityResultsBottomSheet(
-                results = state.results,
-                onCityClick = { city ->
-                    viewModel.onCitySelected(city)
-                    scope.launch { scaffoldState.bottomSheetState.partialExpand() }
-                }
-            )
-        }
-    ) { innerPadding ->
-        Box(modifier = Modifier.fillMaxSize()) {
-            SmartCityMapContent(
-                state = state,
-                modifier = Modifier.padding(innerPadding),
-                onRetry = viewModel::retrySync,
-                onErrorShown = viewModel::errorShown
-            )
+    Box(modifier = Modifier.fillMaxSize()) {
+        SmartCityMapContent(
+            state = state,
+            modifier = Modifier.fillMaxSize(),
+            onRetry = viewModel::retrySync,
+            onErrorShown = viewModel::errorShown
+        )
 
-            SearchBar(
-                query = state.query,
-                onQueryChanged = viewModel::onQueryChanged,
-                onSearchConfirmed = {
-                    viewModel.onSearchConfirmed()
-                    scope.launch { scaffoldState.bottomSheetState.partialExpand() }
-                },
+        Box(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Box(
                 modifier = Modifier
-                    .align(Alignment.TopCenter)
-                    .padding(top = 16.dp)
-            )
+                    .fillMaxSize()
+                    .padding(top = searchBarHeight)
+            ) {
+                BottomSheetScaffold(
+                    scaffoldState = scaffoldState,
+                    sheetPeekHeight = 200.dp,
+                    sheetContent = {
+                        CityResultsBottomSheet(
+                            results = state.results,
+                            onCityClick = { city ->
+                                viewModel.onCitySelected(city)
+                                scope.launch { scaffoldState.bottomSheetState.partialExpand() }
+                            }
+                        )
+                    }
+                ) { _ ->
+
+                }
+            }
         }
+
+        SearchBar(
+            query = state.query,
+            onQueryChanged = viewModel::onQueryChanged,
+            onSearchConfirmed = {
+                viewModel.onSearchConfirmed()
+                scope.launch { scaffoldState.bottomSheetState.partialExpand() }
+            },
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .padding(top = 16.dp)
+        )
     }
 }
-
