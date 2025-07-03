@@ -5,6 +5,7 @@ import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -35,25 +36,28 @@ fun SmartCityScreen(
                     scope.launch { scaffoldState.bottomSheetState.partialExpand() }
                 }
             )
-        },
-        topBar = {
+        }
+    ) { innerPadding ->
+        Box(modifier = Modifier.fillMaxSize()) {
+            SmartCityMapContent(
+                state = state,
+                modifier = Modifier.padding(innerPadding),
+                onRetry = viewModel::retrySync,
+                onErrorShown = viewModel::errorShown
+            )
+
             SearchBar(
                 query = state.query,
                 onQueryChanged = viewModel::onQueryChanged,
-                isLoading = state.isLoading,
                 onSearchConfirmed = {
                     viewModel.onSearchConfirmed()
                     scope.launch { scaffoldState.bottomSheetState.partialExpand() }
-                }
+                },
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+                    .padding(top = 16.dp)
             )
         }
-    ) { innerPadding ->
-        SmartCityMapContent(
-            state = state,
-            modifier = Modifier.padding(innerPadding),
-            onRetry = viewModel::retrySync,
-            onErrorShown = viewModel::errorShown
-        )
     }
 }
 
