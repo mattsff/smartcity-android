@@ -2,4 +2,7 @@
     <string name="app_name">SmartCity</string>
     <string name="error_network">A network error occurred. Please check your connection and try again.</string>
     <string name="error_unknown">An unexpected error occurred. Please try again.</string>
+    <string name="action_retry">Retry</string>
+    <string name="error_sync_cities">We couldn\'t sync the cities.</string>
+    <string name="syncing_cities">Syncing cities...</string>
 </resources>

@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 interface CityLocalDataSource {
     fun searchCities(query: String): Flow<List<CityEntity>>
     suspend fun insertCities(cities: List<CityEntity>)
+    suspend fun getCitiesCount(): Int
 }

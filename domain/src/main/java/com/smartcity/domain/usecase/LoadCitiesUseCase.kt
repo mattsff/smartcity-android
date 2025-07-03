@@ -3,10 +3,17 @@ import com.smartcity.domain.repository.CityRepository
 import javax.inject.Inject
 import com.smartcity.domain.util.Result
 
-class SyncCitiesUseCase @Inject constructor(
+class LoadCitiesUseCase @Inject constructor(
     private val repository: CityRepository
 ) {
     suspend operator fun invoke(): Result<Unit> {
-        return repository.syncCities()
+        val hasCities = repository.hasCitiesStored()
+
+        return if (!hasCities) {
+            repository.syncCities()
+        } else {
+            Result.Success(Unit)
+        }
     }
 }
+

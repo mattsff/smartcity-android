@@ -15,4 +15,8 @@ class CityLocalDataSourceImpl(
     override suspend fun insertCities(cities: List<CityEntity>) {
         dao.insertCities(cities)
     }
+
+    override suspend fun getCitiesCount(): Int {
+        return dao.getCount()
+    }
 }

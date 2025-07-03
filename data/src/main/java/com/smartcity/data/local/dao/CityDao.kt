@@ -21,4 +21,8 @@ interface CityDao {
         LIMIT 50
     """)
     fun searchCities(query: String): Flow<List<CityEntity>>
+
+    @Query("SELECT COUNT(*) FROM cities")
+    suspend fun getCount(): Int
 }
+

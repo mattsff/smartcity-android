@@ -42,4 +42,8 @@ class CityRepositoryImpl(
                 throw AppException.UnknownError
             }
     }
+
+    override suspend fun hasCitiesStored(): Boolean {
+        return localDataSource.getCitiesCount() > 0
+    }
 }

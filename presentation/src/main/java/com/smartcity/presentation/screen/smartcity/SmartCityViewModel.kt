@@ -6,16 +6,19 @@ import com.smartcity.domain.model.City
 import com.smartcity.domain.util.Result
 import com.smartcity.domain.util.AppException
 import com.smartcity.domain.usecase.SearchCitiesUseCase
+import com.smartcity.domain.usecase.LoadCitiesUseCase
 import com.smartcity.presentation.utils.dispatcher.DispatcherProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import javax.inject.Inject
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class SmartCityViewModel @Inject constructor(
     private val searchCitiesUseCase: SearchCitiesUseCase,
+    private val loadCitiesUseCase: LoadCitiesUseCase,
     private val dispatcherProvider: DispatcherProvider,
 ) : ViewModel() {
 
@@ -24,6 +27,8 @@ class SmartCityViewModel @Inject constructor(
         val query: String = "",
         val results: List<City> = emptyList(),
         val error: AppException? = null,
+        val isSyncing: Boolean = false,
+        val showEmptyState: Boolean = false
     )
 
     private val _uiState = MutableStateFlow(UiState())
@@ -33,6 +38,7 @@ class SmartCityViewModel @Inject constructor(
 
     init {
         observeQuery()
+        syncCities()
     }
 
     @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
@@ -72,6 +78,26 @@ class SmartCityViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
+    private fun syncCities() {
+        viewModelScope.launch(dispatcherProvider.io()) {
+            _uiState.update { it.copy(isSyncing = true, showEmptyState = false) }
+            when (val result = loadCitiesUseCase()) {
+                is Result.Success -> {
+                    _uiState.update { it.copy(isSyncing = false, showEmptyState = false) }
+                }
+                is Result.Error -> {
+                    _uiState.update {
+                        it.copy(
+                            isSyncing = false,
+                            error = result.exception,
+                            showEmptyState = true
+                        )
+                    }
+                }
+            }
+        }
+    }
+
     fun onQueryChanged(query: String) {
         _uiState.update { it.copy(query = query) }
         queryFlow.value = query
@@ -82,5 +108,9 @@ class SmartCityViewModel @Inject constructor(
 
     fun errorShown() {
         _uiState.update { it.copy(error = null) }
+    }
+
+    fun retrySync() {
+        syncCities()
     }
 }
