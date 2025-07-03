@@ -7,6 +7,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.smartcity.presentation.screen.smartcity.components.*
@@ -20,8 +21,7 @@ fun SmartCityScreen(
     val state by viewModel.uiState.collectAsState()
     val scaffoldState = rememberBottomSheetScaffoldState()
     val scope = rememberCoroutineScope()
-
-    val searchBarHeight = 100.dp
+    val bottomSheetTopPadding = 150.dp //TODO: Make this dynamic based on screen size
 
     LaunchedEffect(Unit) {
         scaffoldState.bottomSheetState.expand()
@@ -41,7 +41,7 @@ fun SmartCityScreen(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = searchBarHeight)
+                    .padding(top = bottomSheetTopPadding)
             ) {
                 BottomSheetScaffold(
                     scaffoldState = scaffoldState,
