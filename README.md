@@ -10,6 +10,7 @@ Current implementation status:
 - [x] Results display in BottomSheet
 - [x] City visualization on map
 - [x] Jetpack Compose UI implementation
+- [ ] Orientation Handling
 - [ ] Favorites management
 - [ ] Smooth camera transitions on map
 - [ ] City detail view
