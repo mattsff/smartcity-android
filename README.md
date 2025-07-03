@@ -2,6 +2,19 @@
 
 This Android app provides a map-based city search experience with a familiar, intuitive layout inspired by Google Maps.
 
+## Project Scope
+
+Current implementation status:
+- [x] City data loading from API
+- [x] City search functionality
+- [x] Results display in BottomSheet
+- [x] City visualization on map
+- [x] Jetpack Compose UI implementation
+- [ ] Favorites management
+- [ ] Smooth camera transitions on map
+- [ ] City detail view
+- [ ] Unit and UI tests
+
 ## Overview
 
 - Search for cities using a search bar at the top of the screen.
@@ -59,9 +72,8 @@ You can run the unit tests from Android Studio:
 - **Networking:** Retrofit
 - **Local Database:** Room
 - **Serialization:** Kotlinx Serialization
-- **Map:** Google Maps Compose 
+- **Map:** Google Maps Compose
 - **Testing:** JUnit, MockK
-- **Dark Mode:** Supported
 
 ## Configuration
 
@@ -72,11 +84,11 @@ You can run the unit tests from Android Studio:
   ```
   If you don't have an API key, please contact the project maintainer to request one.
 
-## TODO / Improvements
+## Other Improvements
 
+- Improve UI
 - Improve UX for error and loading states
 - Add Unit Tests, UI, and E2E
-- Standardize component dimensions
 - Set up CI/CD pipelines
 - Add localization support
 - Integrate a linter such as Ktlint or Detekt
