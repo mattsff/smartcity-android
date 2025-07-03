@@ -61,16 +61,18 @@ fun SmartCityScreen(
             }
         }
 
-        SearchBar(
-            query = state.query,
-            onQueryChanged = viewModel::onQueryChanged,
-            onSearchConfirmed = {
-                viewModel.onSearchConfirmed()
-                scope.launch { scaffoldState.bottomSheetState.partialExpand() }
-            },
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .padding(top = 16.dp)
-        )
+        if (!state.isSyncing) {
+            SearchBar(
+                query = state.query,
+                onQueryChanged = viewModel::onQueryChanged,
+                onSearchConfirmed = {
+                    viewModel.onSearchConfirmed()
+                    scope.launch { scaffoldState.bottomSheetState.partialExpand() }
+                },
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+                    .padding(top = 16.dp)
+            )
+        }
     }
 }
