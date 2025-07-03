@@ -10,6 +10,7 @@ Current implementation status:
 - [x] Results display in BottomSheet
 - [x] City visualization on map
 - [x] Jetpack Compose UI implementation
+- [ ] Orientation Handling
 - [ ] Favorites management
 - [ ] Smooth camera transitions on map
 - [ ] City detail view
@@ -95,5 +96,9 @@ You can run the unit tests from Android Studio:
   MAPS_API_KEY=your_api_key_here
   ```
   If you don't have an API key, please contact the project maintainer to request one.
+
+## Demo
+
+https://github.com/user-attachments/assets/44b40f59-1639-4ed5-9912-79362f8c72c8
 
 
