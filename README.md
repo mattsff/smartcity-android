@@ -9,8 +9,7 @@ This Android app provides a map-based city search experience with a familiar, in
 - See a bottom sheet list of city results (expanded by default).
 - The list updates in real time as you type.
 - The map only updates when:
-    - You select a city from the list, or
-    - You press the search (keyboard “return”) button.
+    - You select a city from the list, or You press the search (keyboard "return") button.
 - When the map updates:
     - The list collapses.
     - The map displays either the selected city or all search results.
@@ -37,7 +36,8 @@ This Android app provides a map-based city search experience with a familiar, in
 
 1. Clone the repository
 2. Open the project in Android Studio
-3. Build and run on a device or emulator
+3. Configure Google Maps API Key (see Configuration section below)
+4. Build and run on a device or emulator
 
 ## Running Unit Tests
 
@@ -66,6 +66,11 @@ You can run the unit tests from Android Studio:
 ## Configuration
 
 - API `BASE_URL` is set in the `data` module `build.gradle` file.
+- **Google Maps API Key**: Add your Google Maps API Key in the `local.properties` file:
+  ```
+  MAPS_API_KEY=your_api_key_here
+  ```
+  If you don't have an API key, please contact the project maintainer to request one.
 
 ## TODO / Improvements
 

@@ -2,12 +2,12 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.dagger.hilt)
-    alias(libs.plugins.compose.compiler)
 }
 
 android {
-    namespace = "com.smartcity.presentation"
+    namespace = "com.smartcity.data"
     compileSdk = 35
 
     defaultConfig {
@@ -15,6 +15,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+        buildConfigField("String", "BASE_URL", "\"https://gist.githubusercontent.com/\"")
     }
 
     buildTypes {
@@ -33,37 +34,31 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-
     buildFeatures {
-        compose = true
+        buildConfig = true
     }
 }
 
 dependencies {
-    implementation(project(":domain"))
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(platform(libs.compose.bom))
-    implementation(libs.compose.ui)
-    implementation(libs.compose.foundation)
-    implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.activity.compose)
-    implementation(libs.navigation.compose)
-
+    implementation(project(":smartcityexploration-domain"))
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.serialization)
+    implementation(libs.okhttp.logging)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
-    implementation(libs.hilt.navigation.compose)
 
-    implementation(libs.material3)
-    implementation(libs.material)
-    implementation(libs.google.maps.compose)
+    // Room dependencies
+    implementation(libs.room.runtime)
+    kapt(libs.room.compiler)
+    implementation(libs.room.ktx)
 
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    debugImplementation(libs.compose.ui.tooling)
     testImplementation(libs.mockk)
     testImplementation(libs.kotlinx.coroutines.test)
 }

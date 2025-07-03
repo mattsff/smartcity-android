@@ -28,7 +28,9 @@ class SmartCityViewModel @Inject constructor(
         val results: List<City> = emptyList(),
         val error: AppException? = null,
         val isSyncing: Boolean = false,
-        val showEmptyState: Boolean = false
+        val showEmptyState: Boolean = false,
+        val mapCities: List<City> = emptyList(),
+        val selectedCity: City? = null
     )
 
     private val _uiState = MutableStateFlow(UiState())
@@ -104,6 +106,14 @@ class SmartCityViewModel @Inject constructor(
         if (query.length < 2) {
             _uiState.update { it.copy(results = emptyList(), error = null, isLoading = false) }
         }
+    }
+
+    fun onSearchConfirmed() {
+        _uiState.update { it.copy(mapCities = it.results, selectedCity = null) }
+    }
+
+    fun onCitySelected(city: City) {
+        _uiState.update { it.copy(selectedCity = city, mapCities = listOf(city)) }
     }
 
     fun errorShown() {

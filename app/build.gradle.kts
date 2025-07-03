@@ -51,9 +51,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":data"))
-    implementation(project(":domain"))
-    implementation(project(":presentation"))
+    implementation(project(":smartcityexploration-data"))
+    implementation(project(":smartcityexploration-domain"))
+    implementation(project(":smartcityexploration-presentation"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

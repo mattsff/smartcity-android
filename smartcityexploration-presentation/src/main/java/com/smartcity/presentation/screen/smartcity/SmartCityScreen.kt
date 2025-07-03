@@ -29,6 +29,10 @@ fun SmartCityScreen(
     val scaffoldState = rememberBottomSheetScaffoldState()
     val scope = rememberCoroutineScope()
 
+    LaunchedEffect(Unit) {
+        scaffoldState.bottomSheetState.expand()
+    }
+
     BottomSheetScaffold(
         scaffoldState = scaffoldState,
         sheetPeekHeight = 200.dp,
@@ -36,7 +40,7 @@ fun SmartCityScreen(
             CityResultsBottomSheet(
                 results = state.results,
                 onCityClick = { city ->
-                    // move camera to city (callback)
+                    viewModel.onCitySelected(city)
                     scope.launch { scaffoldState.bottomSheetState.partialExpand() }
                 }
             )
@@ -47,7 +51,7 @@ fun SmartCityScreen(
                 onQueryChanged = viewModel::onQueryChanged,
                 isLoading = state.isLoading,
                 onSearchConfirmed = {
-                    // Collapse list, trigger map update
+                    viewModel.onSearchConfirmed()
                     scope.launch { scaffoldState.bottomSheetState.partialExpand() }
                 }
             )
@@ -58,7 +62,10 @@ fun SmartCityScreen(
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            CityMapView(cities = state.results)
+            CityMapView(
+                cities = state.mapCities,
+                selectedCity = state.selectedCity
+            )
 
             if (state.isLoading) {
                 CircularProgressIndicator(
