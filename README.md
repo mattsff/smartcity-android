@@ -15,6 +15,18 @@ Current implementation status:
 - [ ] City detail view
 - [ ] Unit and UI tests
 
+## Other identified issues & improvements
+
+- Improve Keyboard handling
+- Clear markers when search is cleared
+- Improve UI
+- Improve UX for error and loading states
+- Add Unit Tests, UI, and E2E
+- Set up CI/CD pipelines
+- Add localization support
+- Integrate a linter
+
+
 ## Overview
 
 - Search for cities using a search bar at the top of the screen.
@@ -84,12 +96,4 @@ You can run the unit tests from Android Studio:
   ```
   If you don't have an API key, please contact the project maintainer to request one.
 
-## Other Improvements
-
-- Improve UI
-- Improve UX for error and loading states
-- Add Unit Tests, UI, and E2E
-- Set up CI/CD pipelines
-- Add localization support
-- Integrate a linter such as Ktlint or Detekt
 
