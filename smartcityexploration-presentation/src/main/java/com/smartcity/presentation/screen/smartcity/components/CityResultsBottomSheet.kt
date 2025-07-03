@@ -32,8 +32,8 @@ fun CityResultsBottomSheet(
             Text(
                 text = stringResource(R.string.no_results_found),
                 modifier = Modifier
-                    .padding(16.dp)
-                    .align(Alignment.Center),
+                    .padding(horizontal = 16.dp, vertical = 40.dp)
+                    .align(Alignment.TopCenter),
                 textAlign = TextAlign.Center
             )
         } else {
