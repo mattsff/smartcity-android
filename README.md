@@ -96,4 +96,8 @@ You can run the unit tests from Android Studio:
   ```
   If you don't have an API key, please contact the project maintainer to request one.
 
+## Demo
+
+https://github.com/user-attachments/assets/44b40f59-1639-4ed5-9912-79362f8c72c8
+
 
